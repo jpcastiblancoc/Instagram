@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+
+@layer components {
+  .btn-primary {
+    @apply py-2 px-4 bg-blue-200;
+  }
+}
+
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+.instagram-logo {
+    background-position: 0 -130px;
+    height: 51px;
+    width: 175px;
+    background-image: url(https://bit.ly/3v2LT17);
+}
+.facebook-logo {
+    background-position: -414px -259px;
+    background-image: url(https://bit.ly/3v2LT17);
+    height: 16px;
+    width: 16px;
+}
+.apple-store-logo {
+    background-position: -132px -182px;
+    height: 42px;
+    width: 128px;
+    background-image: url(https://bit.ly/3v2LT17);
+}
+.google-store-logo {
+    background-position: 0 -182px;
+    height: 42px;
+    width: 130px;
+    background-image: url(https://bit.ly/3v2LT17);
+}
+.yOZjD {
+    margin-top: 140px;
+    margin-left: -35px;
+    background-position: 0 0;
+    background-size: 454px 618px;
+    -webkit-flex-basis: 454px;
+    -ms-flex-preferred-size: 454px;
+    /* flex-basis: 454px; */
+    height: 518px;
+    margin-right: -15px;
+}
+@media screen and (max-width: 800px) {
+    .ocultar-div{
+        display:none;
+    }
+}
+
+@media screen and (max-width: 799px) {
+    .centrar-div{
+        margin: auto;
+        margin-top: 140px;
+    }
+}
+.vvzhL {
+    color: #8e8e8e;
+    color: rgba(var(--f52,142,142,142),1);
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 20px;
+    margin: 0 40px 10px;
+    text-align: center;
+}
+.ZGwn1 {
+    color: #8e8e8e;
+    color: rgba(var(--f52,142,142,142),1);
+    font-size: 12px;
+    line-height: 16px;
+    margin: 10px 40px;
+    text-align: center;
+}
+.container {
+    max-width: 935px;
+}
+.right .first{
+    /* comment out for tailwindcomponents.com
+      left: 1126px;
+      */
+}
+

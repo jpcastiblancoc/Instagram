@@ -1,0 +1,23 @@
+.h-screen.bg-gray-50.flex.flex-col.mt-20.justify-self-start.centrar-div
+  .flex.flex-col.justify-center.items-center
+    - if @user.nil?
+      = render 'form_new_perfile_component'
+    - else
+      = render 'form_new_perfile_date_component'
+    .bg-white.border.border-gray-300.text-center.w-80.py-4
+      span.text-sm
+        | ¿Tienes una cuenta?
+      = link_to "Inicia sesión", new_user_session_path, class: "text-blue-500 text-sm font-semibold"
+      br
+    .mt-3.text-center
+      span.text-xs
+        | Descargar app
+      .flex.mt-3.space-x-2
+        a[href="https://apps.apple.com/app/instagram/id389801252?vt=lo" target="_blank"]
+
+        .bg-no-repeat.apple-store-logo
+          = image_tag("session/app.png")
+        a[href="https://play.google.com/store/apps/details?id=com.instagram.android" target="_blank"]
+
+        .bg-no-repeat.google-store-logo
+          = image_tag("session/google.png")

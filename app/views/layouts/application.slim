@@ -1,0 +1,21 @@
+doctype html
+html
+head
+meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+title Instagram
+meta content="width=device-width,initial-scale=1" name="viewport" /
+= csrf_meta_tags
+= csp_meta_tag
+= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload"
+script crossorigin="anonymous" src="https://kit.fontawesome.com/0e0cad5fe3.js"
+link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" /
+= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+body class="bg-gray-50 "
+  - if notice
+    p class="notice" = notice
+
+  - if alert
+    p class="alert" = alert
+
+= yield

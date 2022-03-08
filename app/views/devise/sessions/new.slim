@@ -1,0 +1,37 @@
+
+div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-50 mx-auto"
+  div class="flex justify-end yOZjD ocultar-div"
+    = image_tag("session/img_1.png")
+
+  div class="h-screen bg-gray-50 flex flex-col mt-40 justify-self-start centrar-div"
+    div class="flex flex-col justify-center items-center"
+      div class="bg-white border border-gray-300 w-80 py-8 flex items-center flex-col mb-3"
+        h1 class="bg-no-repeat instagram-logo" = image_tag("session/instagram.png")
+        =form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+          div class="mt-8 w-64 flex flex-col"
+            div
+              =f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Correo electrónico",
+                              class: "text-xs w-full mb-4 rounded border bg-gray-100 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none"
+            div
+              =f.password_field :password, autocomplete: "current-password", placeholder: "Contraseña",
+                                 class: "text-xs w-full mb-4 rounded border bg-gray-100 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none"
+            div class="grid justify-self-center"
+              =f.submit "Iniciar sesión", class: " text-sm text-center bg-blue-300 text-white py-1 rounded font-medium"
+        div class="flex justify-evenly space-x-2 w-64 mt-4"
+          spa class="bg-gray-300 h-px flex-grow t-2 relative top-2"
+          span class="flex-none uppercase text-xs text-gray-400 font-semibold" o
+          span class="bg-gray-300 h-px flex-grow t-2 relative top-2"
+        div class="text-xs text-blue-900 mt-4 cursor-pointer -mb-4"
+          =link_to"¿Olvidaste tu contraseña?", new_password_path(resource_name)
+      div class="bg-white border border-gray-300 text-center w-80 py-4"
+          span class="text-sm" ¿No tienes una cuenta?
+          =link_to "Regístrate", profile_new_path, class: "text-blue-500 text-sm font-semibold"
+      div class="mt-3 text-center "
+        span class="text-xs" Descargar app
+        div class="flex mt-3 space-x-2"
+          a href="https://apps.apple.com/app/instagram/id389801252?vt=lo" target="_blank"
+          div class="bg-no-repeat apple-store-logo" = image_tag("session/app.png")
+          a href="https://play.google.com/store/apps/details?id=com.instagram.android" target="_blank"
+          div class="bg-no-repeat google-store-logo" = image_tag("session/google.png")
+
+
