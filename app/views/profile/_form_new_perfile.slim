@@ -1,14 +1,13 @@
 div class="bg-white border border-gray-300 w-80 py-8 flex items-center flex-col mb-3"
   div
     h1 class="instagram-logo" = image_tag("session/instagram.png")
-
   h2 class="vvzhL " Regístrate para ver fotos y videos de tus amigos.
   div class="flex justify-evenly space-x-2 w-64 mt-4"
     span class="bg-gray-300 h-px flex-grow t-2 relative top-2"
     span class="flex-none uppercase text-xs text-gray-400 font-semibold" o
     span class="bg-gray-300 h-px flex-grow t-2 relative top-2"
 
-  = form_tag "/profile/create" do
+  = form_tag "/profile" do
     div class="mt-8 w-64 flex flex-col"
       div
         = email_field_tag :email, nil, placeholder: "Correo electrónico",

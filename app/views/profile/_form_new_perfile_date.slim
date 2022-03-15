@@ -10,7 +10,7 @@
     span.flex-none.uppercase.text-xs.text-gray-400.font-semibold
       | o
     span.bg-gray-300.h-px.flex-grow.t-2.relative.top-2
-  = form_tag "/profile/create" do
+  = form_tag "/profile" do
     .mt-8.w-64.flex.flex-col
       div
         =date_field_tag :date_birth, nil, placeholder: "Fecha de nacimiento",

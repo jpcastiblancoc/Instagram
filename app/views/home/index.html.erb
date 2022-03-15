@@ -1,66 +1,43 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<div data-controller="book-search" data-reflex-root="#morph">
+  <input type="text" placeholder="Search for a book..." class="form-control form-control-lg d-inline-block col-4"
+         data-target="book-search.query" data-action="keyup->book-search#perform">
 
-<%if current_user %>
-  <p>
-    <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
-  </p>
-  <p>
-    <%= link_to "Edit Account", edit_user_registration_path%>
-  </p>
-  <br>
+  <div id="morph" class="mt-4">
+    <span data-target="book-search.activity" class="text-danger" hidden>
+      <i class="fas fa-spinner fa-spin"></i>
+      Searching for books...
+    </span>
+    <span data-target="book-search.count" class="text-success">
+      <strong><%= number_with_delimiter @books&.dig("num_found").to_i %></strong> books found
+    </span>
+    <a href="#"
+       data-controller="book-search"
+       data-action="click->book-search#increment"
+    >Increment <%= @count %></a>
 
-<% else %>
-  <p>
-
-    <%= link_to "Create Account", new_user_registration_path %>
-  </p>
-  <p>
-    <%= link_to "Sign In", new_user_session_path %>
-  </p>
-<% end %>
-
-<!-- component -->
-
-<div class="bg-white border border-gray-300 w-80 py-8 flex items-center flex-col mb-3">
-
-  <h1 class="bg-no-repeat instagram-logo"> <%= image_tag("session/instagram.png") %></h1>
-  <h2 class="vvzhL ">Regístrate para ver fotos y videos de tus amigos.</h2>
-  <div class="flex justify-evenly space-x-2 w-64 mt-4">
-    <span class="bg-gray-300 h-px flex-grow t-2 relative top-2"></span>
-    <span class="flex-none uppercase text-xs text-gray-400 font-semibold">o</span>
-    <span class="bg-gray-300 h-px flex-grow t-2 relative top-2"></span>
+    <table data-target="book-search.list" class="table mt-2" <%= "hidden" unless @books&.dig("docs").present? %>>
+      <thead>
+      <tr>
+        <th scope="col">Subject</th>
+        <th scope="col">Title</th>
+        <th scope="col">Author</th>
+        <th scope="col">Publish Date</th>
+        <th scope="col">ISBN</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% if @books&.dig("docs").present? %>
+        <% @books["docs"][0,12].each do |book| %>
+          <tr>
+            <td><%= truncate book["subject"]&.join(", "), length: 30 %></th>
+            <td><%= truncate book["title"], length: 30 %></th>
+            <td><%= book["author_name"]&.join ", " %></td>
+            <td><%= book["first_publish_year"] %></td>
+            <td><%= book["isbn"]&.first %></td>
+          </tr>
+        <% end %>
+      <% end %>
+      </tbody>
+    </table>
   </div>
-  <%= form_tag "/profile/create" do %>
-    <div class="mt-8 w-64 flex flex-col">
-      <div >
-        <%= email_field_tag :email, nil, placeholder: "Correo electrónico",
-                            class: "text-xs w-full mb-4 rounded border bg-gray-100 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none" %>
-      </div>
-      <div>
-        <%= text_field_tag :name, nil, placeholder: "Nombre completo",
-                           class: "text-xs w-full mb-4 rounded border bg-gray-100 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none" %>
-      </div>
-      <div>
-        <%= text_field_tag :username, nil, placeholder: "Nombre de usuario",
-                           class: "text-xs w-full mb-4 rounded border bg-gray-100 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none" %>
-      </div>
-      <div>
-        <%= password_field_tag :password, nil, placeholder: "Contraseña",
-                               class: "text-xs w-full mb-4 rounded border bg-gray-100 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none"%>
-      </div>
-      <div>
-        <%=date_field_tag :date, nil, placeholder: "Fecha de nacimiento",
-                          class: "text-xs w-full mb-4 rounded border bg-gray-100 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none"%>
-      </div>
-      <div class="grid justify-self-center">
-        <%= submit_tag "Registrarte", class: " text-sm text-center bg-blue-300 text-white py-1 rounded font-medium" %>
-      </div>
-    </div>
-  <% end %>
-  <p class="ZGwn1">Al registrarte, aceptas nuestras
-    <a href="https://help.instagram.com/581066165581870" tabindex="0" target="_blank">Condiciones</a>, la
-    <a href="https://help.instagram.com/519522125107875" tabindex="0" target="_blank">Política de datos</a> y la
-    <a href="/legal/cookies/" tabindex="0" target="_blank">Política de cookies</a>.</p>
 </div>
-
