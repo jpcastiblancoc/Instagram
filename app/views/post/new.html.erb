@@ -1,12 +1,22 @@
 <div>
-  <h1 class="font-bold text-4xl">Post new</h1>
-  <%= render 'form', post: @post %>
-
+  <%= render partial: "layouts/menu" %>
 </div>
 
 
+<div class="flex flex-col mt-20 items-center">
+  <div class=" border w-80 py-8 flex items-center flex-col mb-3">
+
+    <%= render 'form', post: @post %>
+
+    <div class="flex justify-evenly space-x-2 w-64 mt-4">
+      <span class="bg-gray-300 h-px flex-grow t-2 relative top-2"></span>
+      <span class="flex-none uppercase text-xs text-gray-400 font-semibold">o</span>
+      <span class="bg-gray-300 h-px flex-grow t-2 relative top-2"></span>
+    </div>
 
 
+  </div>
+</div>
 
 
 

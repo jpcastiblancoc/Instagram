@@ -16,7 +16,7 @@ class HomeController < ApplicationController
     @user = User.new(email: email, password: clave)
     Profile.create(name: nombre, username: usuario, user: user)
 
-    p "____________________________________"
+
     p email
     p clave
     p nombre

@@ -1,6 +1,6 @@
 class ProfileController < ApplicationController
-  @@data = nil
 
+  @@data = nil
   def index
   end
 
@@ -35,7 +35,6 @@ class ProfileController < ApplicationController
 
   def update
     @profile = current_user.profile
-    pp @profile
     @profile.update(profile_params)
 
     redirect_to profile_path

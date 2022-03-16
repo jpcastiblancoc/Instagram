@@ -22,6 +22,11 @@ gem 'devise'
 
 gem 'slim'
 
+gem "searchkick"
+
+
+gem  'elasticsearch', '< 7.14'
+
 gem 'turbo-rails'
 
 gem 'view_component', require: 'view_component/engine'

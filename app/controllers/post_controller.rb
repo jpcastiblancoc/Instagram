@@ -4,8 +4,7 @@ class PostController < ApplicationController
     if !current_user
       redirect_to "/users/sign_in"
     else
-      @posts = Post.all
-      @profiles = current_user.profile.to_follows
+      @posts = Post.all.sort.reverse
     end
   end
 
@@ -21,8 +20,6 @@ class PostController < ApplicationController
     @post = Post.new(post_params)
     @post.profile = current_user.profile
     @post.save
-
-
 
     redirect_to post_index_path
   end

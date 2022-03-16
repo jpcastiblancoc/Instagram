@@ -1,14 +1,16 @@
 <div class="users-wrapper mt-4 flex w-full justify-between items-center">
   <div class="user-item flex flex-row pl-2">
     <div class="user-img h-10 w-10 border rounded-full overflow-hidden mr-4">
-      <img alt="shinzoabe's profile picture" class="_6q-tv" data-testid="user-avatar" draggable="false" src="https://scontent-nrt1-1.cdninstagram.com/v/t51.2885-19/s150x150/28765771_2034399086813186_5509661386784899072_n.jpg?_nc_ht=scontent-nrt1-1.cdninstagram.com&amp;_nc_ohc=qheOj6mJM98AX83my9F&amp;oh=8a8985205ad5a19ae0905a3c3a77906b&amp;oe=5F93F87C">
+      <% if profile.avatar.attached? %>
+        <%= image_tag  profile.avatar, width: "100px" %>
+      <%end %>
     </div>
     <div class="user-name flex flex-col ">
-      <span class="text-sm font-semibold"></span>
       <%=link_to profile.user_name, controller: 'profile', action:'show', id: profile.id, class: "text-sm font-semibold"%>
       <span class="text-xs -mt-1 text-gray-700"><%=profile.name %></span>
     </div>
   </div>
+
     <a href="#"
        data-reflex="click->Followers#follow"
        data-step=<%="#{current_user.profile.id},#{profile.id}"%>

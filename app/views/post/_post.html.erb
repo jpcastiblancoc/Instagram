@@ -4,20 +4,17 @@
       <div class="header border-b p-4 flex justify-between items-center">
         <div class="left flex flex-row items-center">
           <div class="user-img h-10 w-10 border rounded-full overflow-hidden mr-4">
-            <img alt="nike's profile picture" class="_6q-tv" data-testid="user-avatar" draggable="false" src="https://scontent-nrt1-1.cdninstagram.com/v/t51.2885-19/s150x150/20635165_1942203892713915_5464937638928580608_a.jpg?_nc_ht=scontent-nrt1-1.cdninstagram.com&_nc_ohc=JK-0WwYKXBgAX-mFP6I&oh=e0d86b1c4be3cea94e341f18e17905b3&oe=5F94C764">
+            <% if post.profile.avatar.attached? %>
+              <%= image_tag  post.profile.avatar, width: "100px" %>
+            <%end %>
           </div>
           <div class="user-name-and-place flex flex-col">
-            <span class="text-sm font-bold"><%=post.profile.user_name %></span>
+            <%=link_to post.profile.user_name, controller: 'profile', action:'show', id: post.profile.id, class:"text-sm font-bold"%>
+
             <span class="text-xs font-light text-gray-900">Bogota, Colombia</span>
           </div>
         </div>
-        <div class="right">
-          <svg aria-label="More options" class="_8-yf5 " fill="#262626" height="16" viewBox="0 0 48 48" width="16">
-            <circle clip-rule="evenodd" cx="8" cy="24" fill-rule="evenodd" r="4.5"></circle>
-            <circle clip-rule="evenodd" cx="24" cy="24" fill-rule="evenodd" r="4.5"></circle>
-            <circle clip-rule="evenodd" cx="40" cy="24" fill-rule="evenodd" r="4.5"></circle>
-          </svg>
-        </div>
+
       </div>
       <div class="feed-img">
         <%= image_tag post.avatar, width: "610px"  %>
@@ -44,22 +41,23 @@
                   </a>
                 <% end %>
               </div>
-              <div class="comment mr-4">
-                <svg aria-label="Comment" class="_8-yf5 " fill="#262626" height="24" viewBox="0 0 48 48" width="24">
-                  <path clip-rule="evenodd" d="M47.5 46.1l-2.8-11c1.8-3.3 2.8-7.1 2.8-11.1C47.5 11 37 .5 24 .5S.5 11 .5 24 11 47.5 24 47.5c4 0 7.8-1 11.1-2.8l11 2.8c.8.2 1.6-.6 1.4-1.4zm-3-22.1c0 4-1 7-2.6 10-.2.4-.3.9-.2 1.4l2.1 8.4-8.3-2.1c-.5-.1-1-.1-1.4.2-1.8 1-5.2 2.6-10 2.6-11.4 0-20.6-9.2-20.6-20.5S12.7 3.5 24 3.5 44.5 12.7 44.5 24z" fill-rule="evenodd"></path>
-                </svg>
-              </div>
-              <div class="share">
-                <svg aria-label="Share Post" class="_8-yf5 " fill="#262626" height="24" viewBox="0 0 48 48" width="24">
-                  <path d="M47.8 3.8c-.3-.5-.8-.8-1.3-.8h-45C.9 3.1.3 3.5.1 4S0 5.2.4 5.7l15.9 15.6 5.5 22.6c.1.6.6 1 1.2 1.1h.2c.5 0 1-.3 1.3-.7l23.2-39c.4-.4.4-1 .1-1.5zM5.2 6.1h35.5L18 18.7 5.2 6.1zm18.7 33.6l-4.4-18.4L42.4 8.6 23.9 39.7z"></path>
-                </svg>
-              </div>
+
             </div>
             <div class="right">
               <div class="save">
-                <svg aria-label="Save" class="_8-yf5 " fill="#262626" height="24" viewBox="0 0 48 48" width="24">
-                  <path d="M43.5 48c-.4 0-.8-.2-1.1-.4L24 29 5.6 47.6c-.4.4-1.1.6-1.6.3-.6-.2-1-.8-1-1.4v-45C3 .7 3.7 0 4.5 0h39c.8 0 1.5.7 1.5 1.5v45c0 .6-.4 1.2-.9 1.4-.2.1-.4.1-.6.1zM24 26c.8 0 1.6.3 2.2.9l15.8 16V3H6v39.9l15.8-16c.6-.6 1.4-.9 2.2-.9z"></path>
-                </svg>
+                <% if current_user.profile.follower?( post.profile) && current_user.profile!= post.profile %>
+                  <a href="#"
+                     data-reflex="click->Followers#delete"
+                     data-step=<%="#{current_user.profile.id},#{post.profile.id}"%> >
+                    <span class="bg-transparent hover:bg-blue-500 text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-600 hover:border-transparent rounded">Dejar de seguir</span>
+                  </a>
+                <%elsif current_user.profile!= post.profile %>
+                  <a href="#"
+                     data-reflex="click->Followers#follow"
+                     data-step=<%="#{current_user.profile.id},#{post.profile.id}"%> >
+                    <span class="bg-transparent hover:bg-blue-500 text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-600 hover:border-transparent rounded">Seguir</span>
+                  </a>
+                <%end%>
               </div>
             </div>
           </div>
@@ -108,7 +106,7 @@
               <div>
                 <%=  hidden_field(:user, :user_id, :value => current_user.id)  %>
               </div>
-              <div comentario>
+              <div commentario>
                 <%= text_field_tag :text, nil, placeholder: "Agregar un comentario...", class: "text-sm h-10 w-full outline-none focus:outline-none w-10/12" %>
               </div>
               <%= link_to "Publicar", "#", data: { reflex: "click->CommentsReflex#submit" }, class: "text-blue-500 opacity-75 w-2/12 text-right font-bold" %>

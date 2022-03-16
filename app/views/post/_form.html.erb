@@ -1,24 +1,35 @@
-<%= form_with(model: post) do |form| %>
-  <% if post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
-      <ul>
-        <% post.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+<div class="flex justify-end">
+<h1>Crear Post</h1>
+</div>
+<h1 class="bg-no-repeat ">
+
+</h1>
+<div class="mt-8 w-64 flex flex-col">
+  <%= form_with(model: post) do |form| %>
+
+    <% if post.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+        <ul>
+          <% post.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.file_field :avatar,
+          class: "text-xs w-full mb-4 rounded border bg-gray-120 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none text-center"%>
+    </div>
+
+    <div class="field">
+      <%= form.label :description %>
+      <%= form.text_field :description,  class: "text-xs w-full mb-4 rounded border bg-gray-120 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none text-center" %>
+    </div>
+
+    <div class=" text-sm text-center bg-blue-300 text-white py-1 rounded font-medium">
+      <%= form.submit %>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_field :description %>
-  </div>
-  <div class="field">
-    <%= form.label :avatar %>
-    <%= form.file_field :avatar%>
-  </div>
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

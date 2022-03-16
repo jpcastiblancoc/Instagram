@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
-
   get '/post' => 'post#index'
+
   get '/post/new' => 'post#new'
   post '/posts' => 'post#create'
+
   get 'post/index'
   get 'post/create'
   get 'post/new'
