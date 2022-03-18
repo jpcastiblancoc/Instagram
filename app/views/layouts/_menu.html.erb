@@ -61,7 +61,7 @@
       <span>   |   </span>
       <div class="profile-icon">
         <a href="#">
-          <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+          <%= link_to "Sign Out", destroy_user_session_path, method: :delete, session: nil %>
         </a>
       </div>
     </div>

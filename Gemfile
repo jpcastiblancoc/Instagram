@@ -24,6 +24,8 @@ gem 'slim'
 
 gem "searchkick"
 
+gem 'simple_form'
+
 
 gem  'elasticsearch', '< 7.14'
 

@@ -28,12 +28,12 @@ export default class extends ApplicationController {
    * need them.
    *
    * Important:
-   * Make sure to add data-controller="new-profile" to your markup alongside
+   * Make sure to add data-controller="new_p-profile" to your markup alongside
    * data-reflex="NewProfile#dance" for the lifecycle methods to fire properly.
    *
    * Example:
    *
-   *   <a href="#" data-reflex="click->NewProfile#dance" data-controller="new-profile">Dance!</a>
+   *   <a href="#" data-reflex="click->NewProfile#dance" data-controller="new_p-profile">Dance!</a>
    *
    * Arguments:
    *

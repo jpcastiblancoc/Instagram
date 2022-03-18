@@ -1,6 +1,6 @@
 class ProfileController < ApplicationController
 
-  @@data = nil
+
   def index
   end
 
@@ -10,23 +10,22 @@ class ProfileController < ApplicationController
 
   def new
     @profile = Profile.new
-    @user = @@data
+    @profile.build_user
   end
 
   def create
-    @@data = params if params.has_key?(:name)
+    @profile = Profile.new(profile_params)
+    respond_to do |format|
+      if @profile.save
+        session[:user_id] = @profile.user.id
+        format.html { redirect_to profile_url(@profile), notice: "Prueba was successfully created." }
+        # redirect_to post_index_path
+      else
+        format.html { render :new, status: :unprocessable_entity }
+      end
+    end
 
-    if params.has_key?(:date_birth)
-      user1 = User.new(email: @@data[:email], password: @@data[:password])
-      profile = Profile.create(name: @@data[:name], user_name: @@data[:user_name], user: user1, date_birth: date_format(params[:date_birth]), avatar: nil)
-      $user = profile.user
-      session[:user_id] = profile.user.id
-      @@data = nil
-      redirect_to post_index_path
-     else
-       redirect_to new_profile_path
-       @user= nil
-     end
+
   end
 
   def edit
@@ -47,7 +46,9 @@ class ProfileController < ApplicationController
     end
 
     def profile_params
-      params.require(:profile).permit(:name, :user_name, :date_birth, :avatar,)
+      params.require(:profile).permit(
+        :name, :user_name, :date_birth, :avatar,
+        user_attributes: [:email, :password])
     end
 
 

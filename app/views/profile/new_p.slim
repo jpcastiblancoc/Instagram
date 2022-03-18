@@ -1,6 +1,9 @@
 .h-screen.bg-gray-50.flex.flex-col.mt-20.justify-self-start.centrar-div
   .flex.flex-col.justify-center.items-center
-    = render 'form_new_perfile'
+    - if @user.nil?
+      = render 'form_new_perfile'
+    - else
+      = render 'form_new_perfile_date'
     .bg-white.border.border-gray-300.text-center.w-80.py-4
       span.text-sm
         | ¿Tienes una cuenta?
