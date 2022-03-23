@@ -31,8 +31,13 @@ gem  'elasticsearch', '< 7.14'
 
 gem 'turbo-rails'
 
-gem 'view_component', require: 'view_component/engine'
+gem 'view_component'
 
+group :development, :test do
+  gem 'faker'
+  gem 'rspec-rails', '~> 4.0.1'
+end
+gem 'factory_bot_rails'
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password

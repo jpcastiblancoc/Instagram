@@ -5,7 +5,7 @@ class Profile < ApplicationRecord
 
   validates :name, length: { minimum: 3, maximum: 35, message: "Minimo 3 y maximo 35 caracteres"}
 
-  validates :user_name, length: { in: 3..10, message: "Minimo 3 y maximo 10 caracteres"}
+  validates :user_name, length: { in: 3..40, message: "Minimo 3 y maximo 10 caracteres"}
 
   has_one_attached :avatar
   belongs_to :user, class_name: User.name
