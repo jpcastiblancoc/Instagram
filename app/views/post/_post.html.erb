@@ -10,11 +10,9 @@
           </div>
           <div class="user-name-and-place flex flex-col">
             <%=link_to post.profile.user_name, controller: 'profile', action:'show', id: post.profile.id, class:"text-sm font-bold"%>
-
             <span class="text-xs font-light text-gray-900">Bogota, Colombia</span>
           </div>
         </div>
-
       </div>
       <div class="feed-img">
         <%= image_tag post.avatar, width: "610px"  %>
@@ -74,7 +72,7 @@
             <span> <%=post.comments.count %></span> comentarios
           </div>
 
-          <% Comment.where(post: post).each do |comment| %>
+          <% post.comments.last(3).each do |comment| %>
           <div class="caption text-sm">
             <b><%=comment.profile.user_name%></b>
             <%=comment.text %>
@@ -89,8 +87,6 @@
             <% end %>
           </div>
           <% end %>
-
-
           <div class="post-date mt-1">
                       <span class="text-xs text-gray-900">
                         <%=post.created_at %>

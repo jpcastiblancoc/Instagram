@@ -11,20 +11,20 @@ div class="bg-white border border-gray-300 w-80 py-8 flex items-center flex-col 
     div class="mt-8 w-64 flex flex-col"
 
       div
-        = form.text_field :name, placeholder: "Nombre completo",
+        = form.text_field :name, placeholder: "Nombre completo", id: "id_name",
                 class: "text-xs w-full  rounded border bg-gray-100 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none"
         span class="flex items-center font-medium tracking-wide text-red-500 text-xs ml-1 mb-4" = @profile.errors[:name].any? ? @profile.errors[:name].to_s[/\w([^"]*)/] : ""
-        = form.text_field :user_name, placeholder: "Nombre de usuario",
+        = form.text_field :user_name, placeholder: "Nombre de usuario", id: "id_user_name",
                 class: "text-xs w-full rounded border bg-gray-100 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none"
         span class="flex items-center font-medium tracking-wide text-red-500 text-xs ml-1 mb-4" = @profile.errors[:user_name].any? ? @profile.errors[:user_name].to_s[/\w([^"]*)/] : ""
-        = form.date_field :date_birth, placeholder: "Fecha de nacimiento",
+        = form.date_field :date_birth, placeholder: "Fecha de nacimiento", id: "id_date_field",
                 class: "text-xs w-full rounded border bg-gray-100 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none"
         span class="flex items-center font-medium tracking-wide text-red-500 text-xs ml-1 mb-4" = @profile.errors[:date_birth].any? ? @profile.errors[:date_birth].to_s[/\w([^"]*)/] : ""
         = form.fields_for :user, User.new do |f|
-          = f.email_field :email, placeholder: "Correo electrónico",
+          = f.email_field :email, placeholder: "Correo electrónico", id: "id_email",
                   class: "text-xs w-full rounded border bg-gray-100 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none"
           span class="flex items-center font-medium tracking-wide text-red-500 text-xs ml-1 mb-4" = @profile.user.errors[:email].any? ? @profile.user.errors[:email].to_s[/\w([^"]*)/] : ""
-          = f.password_field :password, placeholder: "Contraseña",
+          = f.password_field :password, placeholder: "Contraseña", id: "id_password",
                   class: "text-xs w-full rounded border bg-gray-100 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none"
           span class="flex items-center font-medium tracking-wide text-red-500 text-xs ml-1 mb-4" = @profile.user.errors[:password].any? ? "Contraseña no valido" : ""
 

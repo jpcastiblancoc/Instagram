@@ -1,13 +1,30 @@
-# This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
 # Prevent database truncation if the environment is production
-abort("The Rails environment is running in production mode!") if Rails.env.production?
+abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
-# Add additional requires below this line. Rails is not loaded until this point!
-Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
+require 'simplecov'
+require 'simplecov-lcov'
+require 'capybara'
+# require 'percy'
+require 'selenium/webdriver'
+require 'devise'
+require 'faker'
+require "factory_bot_rails"
+#require 'capybara-screenshot/rspec'
 
+factory_bot_definition_file_paths = [
+
+  File.join(File.dirname(__FILE__), "factories")
+]
+factory_bot_definition_file_paths.each do |factory_bot_definition_file_path|
+  FactoryBot.definition_file_paths << factory_bot_definition_file_path
+end
+FactoryBot.factories.clear
+FactoryBot.find_definitions
+
+# Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -33,6 +50,20 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 RSpec.configure do |config|
+  # config.include SyAppDashboard::Engine.routes.url_helpers
+  config.include FactoryBot::Syntax::Methods
+  if ENV["CI"].present?
+    selenium_url = 'http://localhost:4444/wd/hub'
+    Capybara.register_driver :selenium_chrome do |app|
+      options = Selenium::WebDriver::Chrome::Options.new(
+        args: %w[headless disable-gpu no-sandbox]
+      )
+      Capybara::Selenium::Driver.new app, url: selenium_url, browser: :chrome, options: options
+    end
+
+    Capybara::Screenshot.prune_strategy = { keep: 20 }
+  end
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -61,6 +92,42 @@ RSpec.configure do |config|
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
+
+  config.expect_with :rspec do |c|
+    c.syntax = :expect
+  end
+
+  #Add Devise
+  config.include Devise::Test::ControllerHelpers, :type => :controller
+  config.include Devise::Test::IntegrationHelpers, type: :feature
+  config.include Warden::Test::Helpers
+
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+  #SimpleCov.minimum_coverage 95
+  #SimpleCov.maximum_coverage_drop 5
+
+  SimpleCov.refuse_coverage_drop
+
+  SimpleCov.start do
+    add_filter 'bin'
+    add_filter 'config'
+    add_filter 'db'
+    add_filter 'engines'
+    add_filter 'app/channels'
+    add_filter 'spec'
+    add_filter 'app/reflexes/example_reflex.rb'
+    add_filter 'app/reflexes/application_reflex.rb'
+  end
+
+  if ENV["CI"]
+    SimpleCov::Formatter::LcovFormatter.config.report_with_single_file = true
+    SimpleCov.formatter = SimpleCov::Formatter::LcovFormatter
+  end
+
+  Capybara.default_driver = :selenium_chrome # O:selenium :selenium_chrome and :selenium_chrome_headless are also registered
+
+  config.include FactoryBot::Syntax::Methods
+
+
 end

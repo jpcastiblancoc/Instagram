@@ -19,13 +19,10 @@ class ProfileController < ApplicationController
       if @profile.save
         session[:user_id] = @profile.user.id
         format.html { redirect_to profile_url(@profile), notice: "Prueba was successfully created." }
-        # redirect_to post_index_path
       else
         format.html { render :new, status: :unprocessable_entity }
       end
     end
-
-
   end
 
   def edit

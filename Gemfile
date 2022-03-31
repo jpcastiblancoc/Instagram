@@ -33,10 +33,7 @@ gem 'turbo-rails'
 
 gem 'view_component'
 
-group :development, :test do
-  gem 'faker'
-  gem 'rspec-rails', '~> 4.0.1'
-end
+
 gem 'factory_bot_rails'
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
@@ -55,6 +52,20 @@ group :development, :test do
 end
 
 group :development do
+  gem 'byebug'
+  gem 'factory_bot_rails'
+  gem 'pry-rails'
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
+  gem 'faker'
+  gem 'rubocop'
+  gem 'simplecov', require: false
+  gem 'annotate'
+  gem 'yard'
+  gem 'percy-capybara', '~> 4.0.0'
+  gem 'dotenv-rails'
+  gem 'sdoc', git: 'https://github.com/Symplifica/sdoc'
+
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 4.1.0'
   # Display performance information such as SQL time and flame graphs for each request in your browser.
@@ -66,6 +77,8 @@ group :development do
 end
 
 group :test do
+  gem 'rspec_junit_formatter', require: false
+  gem 'simplecov-lcov', require: false
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 3.26'
   gem 'selenium-webdriver'
@@ -81,3 +94,4 @@ gem "tailwindcss-rails", "~> 2.0"
 gem "stimulus_reflex", "~> 3.4"
 
 gem "hotwire-rails", "~> 0.1.3"
+

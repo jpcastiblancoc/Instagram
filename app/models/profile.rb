@@ -16,7 +16,7 @@ class Profile < ApplicationRecord
   accepts_nested_attributes_for :user, allow_destroy: true, reject_if: :all_blank
 
   def generate_reindex
-    Profile.first.reindex
+    Profile.last.reindex
   end
 
   def to_follows
