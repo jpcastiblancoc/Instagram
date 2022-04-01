@@ -16,4 +16,8 @@ class Post < ApplicationRecord
     false
   end
 
+  def date_created
+    (created_at.to_time() - 5.hour).strftime("%d-%m-%Y %H:%M")
+  end
+
 end

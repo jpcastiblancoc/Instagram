@@ -1,11 +1,14 @@
 class Profile < ApplicationRecord
   after_commit :generate_reindex, on: [:create, :update]
   searchkick
-  validates :name, :user_name, :date_birth, presence: { message: "Datos incompletos"}
 
-  validates :name, length: { minimum: 3, maximum: 35, message: "Minimo 3 y maximo 35 caracteres"}
+  validates :user_name, uniqueness: true
 
-  validates :user_name, length: { in: 3..40, message: "Minimo 3 y maximo 10 caracteres"}
+  validates :name, :user_name, :date_birth, presence: { message: "Incomplete data"}
+
+  validates :name, length: { minimum: 3, maximum: 35, message: "Minimum 3 and maximum 35 characters"}
+
+  validates :user_name, length: { in: 3..40, message: "Minimum 3 and maximum 10 characters"}
 
   has_one_attached :avatar
   belongs_to :user, class_name: User.name
@@ -14,6 +17,16 @@ class Profile < ApplicationRecord
   has_many :followers
   has_many :likes
   accepts_nested_attributes_for :user, allow_destroy: true, reject_if: :all_blank
+
+
+  validate :validate_age
+
+  def validate_age
+    if date_birth.present? && date_birth > (Date.today - 4748)
+      errors.add(:date_birth, "must be over 13 years old")
+    end
+  end
+
 
   def generate_reindex
     Profile.last.reindex
@@ -35,5 +48,14 @@ class Profile < ApplicationRecord
   def cont_profile
     followers.where(profile: self).count
   end
+
+  def posts_profile
+    posts = []
+    followers.where(profile: self).each{|follower| Profile.find(follower.profile_follower_id).posts.each{|post| posts << post}}
+    self.posts.each { |post| posts << post }
+    posts.sort
+  end
+
+
 
 end

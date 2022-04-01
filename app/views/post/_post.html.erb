@@ -72,24 +72,23 @@
             <span> <%=post.comments.count %></span> comentarios
           </div>
 
-          <% post.comments.last(3).each do |comment| %>
-          <div class="caption text-sm">
-            <b><%=comment.profile.user_name%></b>
-            <%=comment.text %>
-
-            <%if current_user.id == comment.profile.user.id %>
-              <a href="#"
-                 data-reflex="click->Comments#delete"
-                 data-step=<%= comment.id%>
-              >
-                <i class="fa-regular fa-trash-can"></i>
-              </a>
-            <% end %>
-          </div>
+          <% post.comments.last(2).each do |comment| %>
+            <div class="caption text-sm">
+              <b><%=comment.profile.user_name%></b>
+              <%=comment.text %>
+              <%if current_user.id == comment.profile.user.id %>
+                <a href="#"
+                   data-reflex="click->Comments#delete"
+                   data-step=<%= comment.id%> >
+                  <i class="fa-regular fa-trash-can"></i>
+                </a>
+              <% end %>
+            </div>
           <% end %>
+
           <div class="post-date mt-1">
                       <span class="text-xs text-gray-900">
-                        <%=post.created_at %>
+                        Publicado el <%=post.date_created%>
                       </span>
           </div>
         </div>
@@ -108,7 +107,6 @@
               <%= link_to "Publicar", "#", data: { reflex: "click->CommentsReflex#submit" }, class: "text-blue-500 opacity-75 w-2/12 text-right font-bold" %>
             </div>
           <% end %>
-
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ class PostController < ApplicationController
     if !current_user
       redirect_to "/users/sign_in"
     else
-      @posts = Post.all.sort.reverse
+      @posts = current_user.profile.posts_profile.reverse
     end
   end
 
@@ -17,11 +17,16 @@ class PostController < ApplicationController
   end
 
   def create
+
     @post = Post.new(post_params)
     @post.profile = current_user.profile
-    @post.save
-
-    redirect_to post_index_path
+    respond_to do |format|
+      if @post.save
+        format.html { redirect_to post_index_path, notice: "Post created successfully" }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+      end
+    end
   end
 
   private

@@ -3,10 +3,14 @@
   <%= render partial: "layouts/menu" %>
   </div>
   <div class="page-content pt-6 h-full ">
-    <div class="container mx-auto flex h-full">
+    <div class="container mx-auto flex h-full" data-reflex-root="[likes]" likes>
       <div class="left w-8/12 pr-4">
-        <div id="timeline" data-reflex-root="[likes]" likes>
-          <%= render partial: "post", collection: @posts %>
+        <div id="timeline" >
+          <% if @posts.count > 2 && current_user.profile.cont_profile > 2 %>
+            <%= render partial: "post", collection: @posts %>
+          <%else %>
+            <%= render partial: "profile", collection: current_user.profile.to_follows %>
+          <%end %>
         </div>
       </div>
       <div class="right w-4/12 h-screen overflow-visible h-full ">
@@ -22,19 +26,21 @@
               <span class="text-sm text-gray-600  block"><%=current_user.profile.name%></span>
             </div>
           </div>
-          <div class="suggestion-users">
-            <div class="title flex w-full justify-between text-sm">
-              <div class="left">
-                <h1 class="font-bold">Sugerencias para ti</h1>
+          <% if @posts.count > 2 && current_user.profile.cont_profile > 2 %>
+            <div class="suggestion-users">
+              <div class="title flex w-full justify-between text-sm">
+                <div class="left">
+                  <h1 class="font-bold">Sugerencias para ti</h1>
+                </div>
+                <div class="right">
+                  <span>Ver todo</span>
+                </div>
               </div>
-              <div class="right">
-                <span>Ver todo</span>
+              <div id="timeline"  >
+                <%= render partial: "profile", collection: current_user.profile.to_follows.last(8) %>
               </div>
             </div>
-            <div id="timeline"  data-reflex-root="[follow]" follow>
-              <%= render partial: "profile", collection: current_user.profile.to_follows %>
-            </div>
-          </div>
+          <%end %>
         </div>
       </div>
     </div>

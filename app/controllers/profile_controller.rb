@@ -1,6 +1,5 @@
 class ProfileController < ApplicationController
 
-
   def index
   end
 
@@ -17,8 +16,7 @@ class ProfileController < ApplicationController
     @profile = Profile.new(profile_params)
     respond_to do |format|
       if @profile.save
-        session[:user_id] = @profile.user.id
-        format.html { redirect_to profile_url(@profile), notice: "Prueba was successfully created." }
+        format.html { redirect_to "/users/sign_in", notice: "You registered successfully, you can now log in. e-mail. #{@profile.user.email}" }
       else
         format.html { render :new, status: :unprocessable_entity }
       end

@@ -2,32 +2,20 @@
 <h1>Crear Post</h1>
 </div>
 <h1 class="bg-no-repeat ">
-
 </h1>
 <div class="mt-8 w-64 flex flex-col">
   <%= form_with(model: post) do |form| %>
 
-    <% if post.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
-        <ul>
-          <% post.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
     <div class="field">
       <%= form.file_field :avatar, id: "img_post",
-          class: "text-xs w-full mb-4 rounded border bg-gray-120 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none text-center"%>
+          class: "text-xs w-full  rounded border bg-gray-120 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none text-center"%>
+      <span class="flex items-center font-medium tracking-wide text-red-500 text-xs ml-1 mb-4"> <%= post.errors[:avatar].any? ? post.errors[:avatar].to_s[/\w([^"]*)/] : ""%></span>
     </div>
-
     <div class="field">
       <%= form.label :description %>
-      <%= form.text_field :description,  class: "text-xs w-full mb-4 rounded border bg-gray-120 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none text-center" %>
+      <%= form.text_field :description,  class: "text-xs w-full rounded border bg-gray-120 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none text-center" %>
+      <span class="flex items-center font-medium tracking-wide text-red-500 text-xs ml-1 mb-4"> <%= post.errors[:description].any? ? post.errors[:description].to_s[/\w([^"]*)/] : ""%></span>
     </div>
-
     <div class=" text-sm text-center bg-blue-300 text-white py-1 rounded font-medium">
       <%= form.submit %>
     </div>

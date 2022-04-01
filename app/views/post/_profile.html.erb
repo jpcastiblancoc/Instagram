@@ -10,12 +10,10 @@
       <span class="text-xs -mt-1 text-gray-700"><%=profile.name %></span>
     </div>
   </div>
-
     <a href="#"
        data-reflex="click->Followers#follow"
        data-step=<%="#{current_user.profile.id},#{profile.id}"%>
     >
       <span class="follow text-blue-600 text-sm font-semibold">Seguir</span>
     </a>
-
 </div>
