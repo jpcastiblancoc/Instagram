@@ -3,19 +3,15 @@
 </div>
 <div class="h-screen bg-gray-100 flex flex-col mt-20 items-center">
   <div class="bg-white border border-gray-300 w-80 py-8 flex items-center flex-col mb-3">
-
     <%= render 'form', profile: @profile %>
-
     <div class="flex justify-evenly space-x-2 w-64 mt-4">
       <span class="bg-gray-300 h-px flex-grow t-2 relative top-2"></span>
       <span class="flex-none uppercase text-xs text-gray-400 font-semibold">o</span>
       <span class="bg-gray-300 h-px flex-grow t-2 relative top-2"></span>
     </div>
     <button class="mt-4 flex">
-      <div class="bg-no-repeat facebook-logo mr-1"></div>
+      <div class="bg-no-repeat mr-1"></div>
       <%=link_to "Cambiar correo y/o contraseña",  edit_user_registration_path,  class: "text-xs text-blue-900 font-semibold"%>
     </button>
-
   </div>
-
 </div>

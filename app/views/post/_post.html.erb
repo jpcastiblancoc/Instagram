@@ -1,4 +1,4 @@
-<div class="feeds" >
+<div id="p<%=post.id%>" class="feeds " >
   <div class="feed-wrapper mb-4">
     <div class="feed-item border border-gray-400 rounded bg-white">
       <div class="header border-b p-4 flex justify-between items-center">
@@ -59,19 +59,47 @@
               </div>
             </div>
           </div>
-          <div class="likes mt-1">
-                      <span class="font-bold text-sm">
-                        <%=post.likes.count %> Me gusta
-                      </span>
+          <div  class="likes mt-1">
+            <span class="text-base font-semibold text-gray-700 mr-2">
+              <b> <a href="#miModal<%=post.id%>"><%=post.likes.count %> Me gusta</a> </b>
+              <div id="miModal<%=post.id%>" class="modal miModal3" >
+                <div class="modal-contenido bg-gray-100">
+                  <a href="#p<%=post.id%>"><i class="fa-solid fa-xmark"></i></a>
+                  <span class="text-base text-gray-700 text-2xl mr-2">Le gusta a:</span>
+                  <%= render partial: "profile/profile", collection: post.profile_likes %>
+                </div>
+              </div>
+            </span>
           </div>
           <div class="caption text-sm mt-2">
             <b><%=post.profile.user_name %></b>
             <%=post.description %>
           </div>
-          <div class="mt-3" style="color: #8e8e8e;">
-            <span> <%=post.comments.count %></span> comentarios
+          <div class="mt-3" >
+            <span class="text-base font-semibold text-gray-700 mr-2" >
+              <b> <a href="#c<%=post.id%>" style="color: #8e8e8e"><%=post.comments.count %> comentarios</a> </b>
+              <div id="c<%=post.id%>" class="modal miModal3">
+                <div class="modal-contenido bg-gray-100">
+                  <a href="#p<%=post.id%>"><i class="fa-solid fa-xmark"></i></a>
+                  <span class="text-base text-gray-700 text-2xl mr-2">Comentarios</span>
+                  <% post.comments.each do |comment| %>
+                    <div class="caption text-sm">
+                      <%=link_to comment.profile.user_name, controller: 'profile', action:'show', id: comment.profile.id, class: "text-sm font-semibold"%>
+                      <%=comment.text %>
+                      <%if current_user.id == comment.profile.user.id %>
+                        <a href="#"
+                          data-reflex="click->Comments#delete"
+                          data-step=<%= comment.id%> >
+                          <i class="fa-regular fa-trash-can"></i>
+                        </a>
+                      <% end %>
+                      <br>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </span>
           </div>
-
           <% post.comments.last(2).each do |comment| %>
             <div class="caption text-sm">
               <b><%=comment.profile.user_name%></b>
@@ -87,9 +115,9 @@
           <% end %>
 
           <div class="post-date mt-1">
-                      <span class="text-xs text-gray-900">
-                        Publicado el <%=post.date_created%>
-                      </span>
+            <span class="text-xs text-gray-900">
+              Publicado el <%=post.date_created%>
+            </span>
           </div>
         </div>
         <div class="bottom border-t pt-3 mt-3">
@@ -102,9 +130,9 @@
                 <%=  hidden_field(:user, :user_id, :value => current_user.id)  %>
               </div>
               <div commentario>
-                <%= text_field_tag :text, nil, placeholder: "Agregar un comentario...", class: "text-sm h-10 w-full outline-none focus:outline-none w-10/12" %>
+                <%= text_field_tag :text, nil, placeholder: "Agregar un comentario...", class: "placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" %>
               </div>
-              <%= link_to "Publicar", "#", data: { reflex: "click->CommentsReflex#submit" }, class: "text-blue-500 opacity-75 w-2/12 text-right font-bold" %>
+              <%= link_to "Publicar", "#", data: { reflex: "click->CommentsReflex#submit" }, class: "text-blue-500 opacity-75 w-6/12 pt-2 text-right font-bold" %>
             </div>
           <% end %>
         </div>

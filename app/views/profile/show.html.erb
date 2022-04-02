@@ -29,15 +29,29 @@
             <%end%>
           </div>
           <div class="text-left pl-4 pt-3">
-              <span class="text-base font-semibold text-gray-700 mr-2">
-                <b><%=@profile.posts.count %></b> posts
-              </span>
             <span class="text-base font-semibold text-gray-700 mr-2">
-                <b><%=@profile.cont_profile_follower%></b> Seguidores
-              </span>
+              <b><%=@profile.posts.count %></b> posts
+            </span>
+            <span class="text-base font-semibold text-gray-700 mr-2">
+              <b> <a href="#miModal"><%=@profile.cont_profile_follower%> Seguidores</a> </b>
+              <div id="miModal" class="modal">
+                <div class="modal-contenido bg-gray-100">
+                  <a href="#"><i class="fa-solid fa-xmark"></i></a>
+                  <span class="text-base text-gray-700 text-2xl mr-2">Seguidores</span>
+                  <%= render partial: "profile/profile", collection: @profile.profile_followers_p %>
+                </div>
+              </div>
+            </span>
             <span class="text-base font-semibold text-gray-700">
-                <b><%= @profile.cont_profile %></b> Seguidos
-              </span>
+               <b> <a href="#miModal2"><%=@profile.cont_profile%> Seguidos</a> </b>
+                      <div id="miModal2" class="modal">
+                        <div class="modal-contenido bg-gray-100">
+                          <a href="#"><i class="fa-solid fa-xmark"></i></a>
+                          <span class="text-base text-gray-700 text-2xl mr-2">Seguidos</span>
+                          <%= render partial: "profile/profile", collection: @profile.profiles_followers %>
+                        </div>
+                      </div>
+            </span>
           </div>
           <div class="text-left pl-4 pt-3">
             <span class="text-lg font-bold text-gray-700 mr-2"><%=@profile.name %></span>
@@ -51,31 +65,33 @@
           </div>
         </div>
       </div>
-
       <hr class="border-gray-500 mt-8" />
       <hr class="border-gray-500 w-20 border-t-1 ml-64 border-gray-800" />
-
       <div class="flex flex-row mt-4 justify-center mr-16">
         <div class="flex text-gray-700 text-center py-2 m-2 pr-5">
           <div class="flex inline-flex">
-            <button
-              class="border-transparent text-gray-800 rounded-full hover:text-blue-600 focus:outline-none focus:text-gray-600"
-              aria-label="Notifications"
-            >
-              <svg
-                class="h-6 w-6"
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z"
-                  />
-              </svg>
-            </button>
+            <%if @profile == current_user.profile %>
+              <%=link_to controller: 'post', action: 'new' do%>
+                <button
+                  class="border-transparent text-gray-800 rounded-full hover:text-blue-600 focus:outline-none focus:text-gray-600"
+                  aria-label="Notifications"
+                >
+                  <svg
+                    class="h-6 w-6"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z"
+                      />
+                  </svg>
+                </button>
+              <%end %>
+            <%end %>
           </div>
           <div class="flex inline-flex ml-2 mt-1">
             <h3 class="text-sm font-bold text-gray-800 mr-2">POSTS</h3>
@@ -113,18 +129,58 @@
                         </div>
                       </div>
                     </div>
-                    <div class="likes mt-1">
-                        <span class="font-bold text-sm">
-                          <%=post.likes.count %> Me gusta
-                        </span>
+                    <div  class="likes mt-1">
+                      <span class="text-base font-semibold text-gray-700 mr-2">
+                        <b> <a href="#miModal<%=post.id%>"><%=post.likes.count %> Me gusta</a> </b>
+                        <div id="miModal<%=post.id%>" class="modal miModal3" >
+                          <div class="modal-contenido bg-gray-100">
+                            <a href="#p<%=post.id%>"><i class="fa-solid fa-xmark"></i></a>
+                            <span class="text-base text-gray-700 text-2xl mr-2">Le gusta a:</span>
+                            <%= render partial: "profile/profile", collection: post.profile_likes %>
+                          </div>
+                        </div>
+                      </span>
                     </div>
                     <div class="caption text-sm mt-2">
                       <b><%=post.profile.user_name %></b>
                       <%=post.description %>
                     </div>
-                    <div class="mt-3" style="color: #8e8e8e;">
-                      <span> <%=post.comments.count %></span> comentarios
+
+                    <div class="mt-3" >
+                      <span class="text-base font-semibold text-gray-700 mr-2" >
+                        <b> <a href="#c<%=post.id%>" style="color: #8e8e8e"><%=post.comments.count %> comentarios</a> </b>
+                        <div id="c<%=post.id%>" class="modal miModal3">
+                          <div class="modal-contenido bg-gray-100">
+                            <a href="#p<%=post.id%>"><i class="fa-solid fa-xmark"></i></a>
+                            <span class="text-base text-gray-700 text-2xl mr-2">Comentarios</span>
+                            <% post.comments.each do |comment| %>
+                              <div class="caption text-sm">
+                                <%=link_to comment.profile.user_name, controller: 'profile', action:'show', id: comment.profile.id, class: "text-sm font-semibold"%>
+                                <%=comment.text %>
+                                <%if current_user.id == comment.profile.user.id %>
+                                  <a href="#"
+                                     data-reflex="click->Comments#delete"
+                                     data-step=<%= comment.id%> >
+                                    <i class="fa-regular fa-trash-can"></i>
+                                  </a>
+                                <% end %>
+                                <br>
+                              </div>
+                            <% end %>
+                          </div>
+                        </div>
+                      </span>
                     </div>
+
+                    <% if post.profile == current_user.profile %>
+                    <div class="caption text-sm mt-2">
+                      <a href="#"
+                         data-reflex="click->Post#delete"
+                         data-step=<%= post.id%> >
+                        <i class="fa-regular fa-trash-can"></i>
+                      </a>
+                    </div>
+                      <%end %>
                   </div>
                 </div>
               </div>

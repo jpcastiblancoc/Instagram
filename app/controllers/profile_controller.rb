@@ -5,6 +5,7 @@ class ProfileController < ApplicationController
 
   def show
     @profile = Profile.find(params[:id])
+    @profiles_f = @profile.profile_followers_p
   end
 
   def new
@@ -45,6 +46,4 @@ class ProfileController < ApplicationController
         :name, :user_name, :date_birth, :avatar,
         user_attributes: [:email, :password])
     end
-
-
 end

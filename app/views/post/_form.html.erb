@@ -7,7 +7,7 @@
   <%= form_with(model: post) do |form| %>
 
     <div class="field">
-      <%= form.file_field :avatar, id: "img_post",
+      <%= form.file_field :avatar, id: "img_post", accept: 'image/jpg',
           class: "text-xs w-full  rounded border bg-gray-120 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none text-center"%>
       <span class="flex items-center font-medium tracking-wide text-red-500 text-xs ml-1 mb-4"> <%= post.errors[:avatar].any? ? post.errors[:avatar].to_s[/\w([^"]*)/] : ""%></span>
     </div>

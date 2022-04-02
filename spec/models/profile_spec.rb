@@ -11,7 +11,7 @@ end
 
 
 describe "Profile", type: :feature do
-  it "Redireccionar al show de profile despues de registrarse" do
+  it "Redireccionar al formulario de logeo despues del registro" do
     visit "/profile/new"
     fill_in 'id_name', with: 'Juan Pablo'
     fill_in 'id_user_name', with: 'JuanP'
@@ -19,7 +19,7 @@ describe "Profile", type: :feature do
     fill_in 'id_email', with: 'juanc95@gmail.com'
     fill_in 'id_password', with: '123456'
     find("input[type='submit']").click
-    expect(page).to have_content('JuanP')
+    expect(page).to have_content('juanc95@gmail.com')
   end
 end
 
@@ -45,6 +45,6 @@ describe "Profile", type: :feature do
     fill_in 'id_email', with: 'juan@gmail.com'
     fill_in 'id_password', with: '12345'
     find("input[type='submit']").click
-    expect(page).to have_content("Contraseña no valido")
+    expect(page).to have_content("Invalid password")
   end
 end

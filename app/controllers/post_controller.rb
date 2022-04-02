@@ -17,7 +17,6 @@ class PostController < ApplicationController
   end
 
   def create
-
     @post = Post.new(post_params)
     @post.profile = current_user.profile
     respond_to do |format|
@@ -33,6 +32,5 @@ class PostController < ApplicationController
     def post_params
       params.require(:post).permit(:description, :avatar)
     end
-
 
 end

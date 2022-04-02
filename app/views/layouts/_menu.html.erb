@@ -13,32 +13,18 @@
       <div id="morph" class="mt-4 uno ">
         <% unless @profiles_follow.blank? %>
           <div class="bg-white  p-5">
-        <span data-target="profiles.activity" class="text-danger" hidden>
-          <i class="fas fa-spinner fa-spin"></i>
-          Buscando perfiles...
-        </span>
-        <span data-target="profiles.count" class="text-success">
-          <strong><%= number_with_delimiter @profiles_follow.count %></strong> Perfiles encontrados
-        </span>
-        <div data-target="profiles.list" class="table mt-2 " <%= "hidden" if @profiles_follow.blank? %>>
-          <div id="timeline ">
-          <% @profiles_follow.each do |profile| %>
-            <div class="users-wrapper mt-4 flex w-full justify-between items-center">
-              <div class="user-item flex flex-row pl-2">
-                <div class="user-img h-10 w-10 border rounded-full overflow-hidden mr-4">
-                  <% if profile.avatar.attached? %>
-                    <%= image_tag  profile.avatar, width: "100px" %>
-                  <%end %>
-                </div>
-                <div class="user-name flex flex-col ">
-                  <%=link_to profile.user_name, controller: 'profile', action:'show', id: profile.id, class: "text-sm font-semibold"%>
-                  <span class="text-xs -mt-1 text-gray-700"><%=profile.name %></span>
-                </div>
+            <span data-target="profiles.activity" class="text-danger" hidden>
+              <i class="fas fa-spinner fa-spin"></i>
+              Buscando perfiles...
+            </span>
+            <span data-target="profiles.count" class="text-success">
+              <strong><%= number_with_delimiter @profiles_follow.count %></strong> Perfiles encontrados
+            </span>
+            <div data-target="profiles.list" class="table mt-2 " <%= "hidden" if @profiles_follow.blank? %>>
+              <div id="timeline ">
+                <%= render partial: "profile/profile", collection: @profiles_follow %>
               </div>
             </div>
-            <% end %>
-          </div>
-        </div>
           </div>
       <% end %>
       </div>
@@ -59,17 +45,24 @@
         </div>
       </div>
       <div class="profile-icon">
-        <% if current_user.profile.avatar.attached?%>
-        <%=link_to image_tag(current_user.profile.avatar, width: "22px", height: "22px" ), controller: 'profile', action:'show', id: current_user.profile.id, class: "follow text-blue-600 text-sm font-semibold" %>
-      <%else %>
-          <%=link_to current_user.profile.user_name, controller: 'profile', action:'show', id: current_user.profile.id, class: "follow text-blue-600 text-sm font-semibold" %>
-        <%end %>
-      </div>
-      <span>   |   </span>
-      <div class="profile-icon">
-        <a href="#">
-          <%= link_to "Sign Out", destroy_user_session_path, method: :delete, session: nil %>
-        </a>
+          <span class="text-base font-semibold text-gray-700 mr-2">
+              <b> <a href="#opcions">
+                <% if current_user.profile.avatar.attached?%>
+                <%= image_tag(current_user.profile.avatar, width: "22px", height: "22px" )%>
+                  <%else %>
+                  <%=current_user.profile.user_name%>
+                  <%end %>
+              </a> </b>
+              <div id="opcions" class="modal miModal3">
+                <div class="modal-contenido bg-gray-100">
+                  <a href="#"><i class="fa-solid fa-xmark"></i></a>
+                  <br>
+                  <%=link_to "Perfil", controller: 'profile', action:'show', id: current_user.profile.id, class: "follow text-blue-600 text-sm font-semibold" %>
+                  <hr>
+                  <%= link_to "Salir", destroy_user_session_path, method: :delete, session: nil %>
+                </div>
+              </div>
+            </span>
       </div>
     </div>
   </div>

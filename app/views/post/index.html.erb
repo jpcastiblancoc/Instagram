@@ -1,11 +1,11 @@
-<div class="relative  h-full padre">
+<div class="relative  h-full padre ">
   <div class="border-b py-3 sticky top-0 bg-white z-50 padre first fixed">
   <%= render partial: "layouts/menu" %>
   </div>
   <div class="page-content pt-6 h-full ">
     <div class="container mx-auto flex h-full" data-reflex-root="[likes]" likes>
       <div class="left w-8/12 pr-4">
-        <div id="timeline" >
+        <div id="timeline" class="pb-5" >
           <% if @posts.count > 2 && current_user.profile.cont_profile > 2 %>
             <%= render partial: "post", collection: @posts %>
           <%else %>

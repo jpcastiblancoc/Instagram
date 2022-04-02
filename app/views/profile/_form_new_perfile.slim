@@ -24,7 +24,7 @@ div class="bg-white border border-gray-300 w-80 py-8 flex items-center flex-col 
           span class="flex items-center font-medium tracking-wide text-red-500 text-xs ml-1 mb-4" = @profile.user.errors[:email].any? ? @profile.user.errors[:email].to_s[/\w([^"]*)/] : ""
           = f.password_field :password, placeholder: "Contraseña", id: "id_password",
                   class: "text-xs w-full rounded border bg-gray-100 border-gray-300 px-2 py-2 focus:outline-none focus:border-gray-400 active:outline-none"
-          span class="flex items-center font-medium tracking-wide text-red-500 text-xs ml-1 mb-4" = @profile.user.errors[:password].any? ? "Contraseña no valido" : ""
+          span class="flex items-center font-medium tracking-wide text-red-500 text-xs ml-1 mb-4" = @profile.user.errors[:password].any? ? "Invalid password" : ""
 
         = form.submit "Registrarte", class: " text-sm text-center bg-blue-300 text-white py-1 rounded font-medium"
 

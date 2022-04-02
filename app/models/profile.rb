@@ -45,8 +45,16 @@ class Profile < ApplicationRecord
     Follower.where(profile_follower: self ).count
   end
 
+  def profile_followers_p
+    Follower.where(profile_follower: self).map{|follower| follower.profile}
+  end
+
   def cont_profile
     followers.where(profile: self).count
+  end
+
+  def profiles_followers
+    followers.where(profile: self).map{|follower| follower.profile_follower}
   end
 
   def posts_profile
@@ -56,6 +64,20 @@ class Profile < ApplicationRecord
     posts.sort
   end
 
+  def eliminar(x)
+    p = Profile.where(user_name: x).first
+    u = p.user
+    p.likes.each{|l| l.destroy}
+    p.comments.each{|c| c.destroy}
+    p.posts.each{|post| post.destroy}
+    p.followers.each{|f| f.destroy}
+    Follower.where(profile_follower: p).each{|f| f.destroy}
+    p.destroy
+    u.destroy
+  end
+
 
 
 end
+
+Profile.where(user_name: "juanpa").first
