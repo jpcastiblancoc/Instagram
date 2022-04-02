@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
-  get '/post' => 'post#index'
-
-  get '/post/new_p' => 'post#new'
+  #get '/post' => 'post#index'
+  #get '/post/new_p' => 'post#new'
   post '/posts' => 'post#create'
-
+  resources :post
   get 'post/index'
   get 'post/create'
   get 'post/new_p'
@@ -27,5 +26,5 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :home
 
-  resources :post
+
 end

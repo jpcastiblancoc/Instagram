@@ -17,7 +17,8 @@
       <span class="flex items-center font-medium tracking-wide text-red-500 text-xs ml-1 mb-4"> <%= post.errors[:description].any? ? post.errors[:description].to_s[/\w([^"]*)/] : ""%></span>
     </div>
     <div class=" text-sm text-center bg-blue-300 text-white py-1 rounded font-medium">
-      <%= form.submit %>
+      <%= form.submit  %>
     </div>
   <% end %>
+
 </div>
