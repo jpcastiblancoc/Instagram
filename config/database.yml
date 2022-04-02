@@ -88,5 +88,4 @@ test:
 production:
   <<: *default
   database: Instagram_production
-  username: postgres
-  password: Abc12345*
+
