@@ -1,30 +1,7 @@
 Rails.application.routes.draw do
-  #get '/post' => 'post#index'
-  #get '/post/new_p' => 'post#new'
   post '/posts' => 'post#create'
-  resources :post
-  get 'post/index'
-  get 'post/create'
-  get 'post/new_p'
-  post 'profile/:id/edit', to: 'profile#update'
-
-
-  get '/profile/new' => 'profile#new'
-
-
-  get '/user' => 'user#index'
-  get '/user/new' => 'user#new'
-  post '/users' => 'user#create'
-
+  resources :post, except: [:create, :update, :edit]
   root to: "post#index"
-
-
-  resources :profile
-
+  resources :profile, except: [:index]
   devise_for :users
-  # root to: "sessions#create"
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  resources :home
-
-
 end
